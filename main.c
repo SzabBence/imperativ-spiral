@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 void print_user_manual_menu()
 {
     printf("User manual");
