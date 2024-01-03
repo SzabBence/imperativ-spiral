@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int countLines(const char *filePath) {
+int countLines(const char *filePath)
+{
     FILE *file = fopen(filePath, "r");
     
-    if (file == NULL) {
+    if (file == NULL)
+    {
         perror("Error opening file");
         return -1;  // Return -1 to indicate an error
     }
@@ -12,8 +14,10 @@ int countLines(const char *filePath) {
     int count = 0;
     char ch;
 
-    while ((ch = fgetc(file)) != EOF) {
-        if (ch == '\n') {
+    while ((ch = fgetc(file)) != EOF)
+    {
+        if (ch == '\n')
+        {
             count++;
         }
     }
@@ -22,10 +26,12 @@ int countLines(const char *filePath) {
     return count;
 }
 
-int countColumns(const char *filePath) {
+int countColumns(const char *filePath)
+{
     FILE *file = fopen(filePath, "r");
     
-    if (file == NULL) {
+    if (file == NULL)
+    {
         perror("Error opening file");
         return -1;  // Return -1 to indicate an error
     }
@@ -34,8 +40,10 @@ int countColumns(const char *filePath) {
     char ch;
 
     // Read the first line to determine the number of columns
-    while ((ch = fgetc(file)) != '\n' && ch != EOF) {
-        if (ch == ' ') {
+    while ((ch = fgetc(file)) != '\n' && ch != EOF)
+    {
+        if (ch == ' ')
+        {
             count++;
         }
     }
@@ -47,17 +55,20 @@ int countColumns(const char *filePath) {
     return count;
 }
 
-int** GetMatrixFromPath(int rows, int columns, const char *filePath) {
+int** GetMatrixFromPath(int rows, int columns, const char *filePath)
+{
     FILE *file = fopen(filePath, "r");
 
-    if (file == NULL) {
+    if (file == NULL)
+    {
         perror("Error opening file");
         return NULL;
     }
 
     // Allocate memory for the matrix
     int **matrix = (int **)malloc(rows * sizeof(int *));
-    for (int i = 0; i < rows; i++) {
+    for (int i = 0; i < rows; i++)
+    {
         matrix[i] = (int *)malloc(columns * sizeof(int));
     }
 
@@ -93,14 +104,17 @@ void WriteMatrixToFile(int** matrix, int rows, int columns, const char *filePath
 {
     FILE *file = fopen(filePath, "w");
 
-    if (file == NULL) {
+    if (file == NULL)
+    {
         perror("Error opening file for writing");
         return;
     }
 
     // Write the matrix to the file
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < columns; j++) {
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < columns; j++)
+        {
             fprintf(file, "%d ", matrix[i][j]);
         }
         fprintf(file, "\n");
@@ -114,7 +128,8 @@ void WriteMatrixToFile(int** matrix, int rows, int columns, const char *filePath
 
 void FreeMatrix(int** matrix, int rows)
 {
-    for (int i = 0; i < rows; i++) {
+    for (int i = 0; i < rows; i++)
+    {
         free(matrix[i]);
     }
     free(matrix);
