@@ -1,13 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-
-typedef struct
-{
-    int **data;  
-    int rows;     
-    int columns;  
-} Matrix;
+#include "matrix.h"
 
 int countLines(const char *filePath)
 {
