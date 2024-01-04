@@ -57,8 +57,6 @@ int countColumns(const char *filePath)
 
 Matrix CreateMatrix(int rows, int columns) {
     Matrix matrix;
-
-    // Allocate memory for the matrix data
     matrix.data = (int **)malloc(rows * sizeof(int *));
     for (int i = 0; i < rows; i++) {
         matrix.data[i] = (int *)malloc(columns * sizeof(int));
@@ -82,10 +80,8 @@ void FreeMatrix(Matrix *matrix)
 
 Matrix LoadDataToMatrix(const char *filePath)
  {
-    // Example implementation:
     Matrix matrix = CreateMatrix(countLines(filePath), countColumns(filePath));  
 
-    // Read matrix from file and populate matrix.data
     FILE *file = fopen(filePath, "r");
     if (file == NULL) {
         perror("Error opening file");
@@ -120,7 +116,6 @@ void WriteMatrixToFile(Matrix *matrix, const char *filePath)
         return;
     }
 
-    // Write the matrix to the file
     for (int i = 0; i < matrix->rows; i++)
     {
         for (int j = 0; j < matrix->columns; j++)
@@ -130,7 +125,6 @@ void WriteMatrixToFile(Matrix *matrix, const char *filePath)
         fprintf(file, "\n");
     }
 
-    // Close the file
     fclose(file);
 
     printf("Matrix successfully written to file: %s\n", filePath);
