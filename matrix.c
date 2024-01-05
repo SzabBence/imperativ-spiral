@@ -142,6 +142,7 @@ void DisplayMatrix(Matrix *matrix)
         }
         printf("\n");
     }
+    printf("\n");
 }
 
 int file_exists(const char *filename)

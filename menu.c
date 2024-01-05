@@ -16,12 +16,41 @@ void generate_matrix_menu()
         scanf("%d", &N);
     }
     
-    Matrix matrix = CreateMatrix(N, N);
-    matrix.generatedMatrix = 1;
-    matrix.loadedMatrix = 0;
-    FillMatrixWithDefaultValues(&matrix);
-    DisplayMatrix(&matrix);
-    FreeMatrix(&matrix);
+    Matrix generatedMatrix = CreateMatrix(N, N);
+    generatedMatrix.generatedMatrix = 1;
+    generatedMatrix.loadedMatrix = 0;
+    
+    int askForOption = -1;
+    while(askForOption < 0 || askForOption >3)
+    {
+        printf("Please choose from the following options: \n");
+        printf("0 - Display matrix \n");
+        printf("1 - Write matrix to file \n");
+        printf("2 - Display and write matrix to file \n");
+        printf("3 - Do nothing, exit\n");
+        printf("-> ");
+        scanf("%d", &askForOption);
+    }
+
+    switch (askForOption)
+    {
+    case 0:
+        DisplayMatrix(&generatedMatrix);
+        break;
+    case 1:
+        WriteMatrixToFileFromTerminal(&generatedMatrix);
+        break;
+    case 2:
+        DisplayMatrix(&generatedMatrix);
+        WriteMatrixToFileFromTerminal(&generatedMatrix);
+        break;
+    case 3:
+        break;
+    }
+    
+    FreeMatrix(&generatedMatrix);
+    printf("Returning to main menu...\n");
+    
 }
 
 void load_matrix_menu()
@@ -50,11 +79,14 @@ void load_matrix_menu()
     case 2:
         DisplayMatrix(&loadedMatrix);
         WriteMatrixToFileFromTerminal(&loadedMatrix);
+        break;
     case 3:
         break;
     }
     
     FreeMatrix(&loadedMatrix);
+    printf("Returning to main menu...\n");
+    
 }
 
 void exit_menu()
@@ -81,7 +113,6 @@ void menu_chosen_option(int option)
 }
 int play(){
 
-    int outcome = 0;
     int option = -1;
     while(option<0 || option >4)
     {
@@ -94,17 +125,17 @@ int play(){
         scanf("%d", &option);
     }
     menu_chosen_option(option);
-
-    if(option != 3)
-    {
-        outcome = 1; 
-    }
-    return outcome;
+    return option;
 }
 
 int main()
 {
-    play();
+    int goOn = -1;
+    while(goOn != 3)
+    {
+        goOn = play();
+    }
+    
     return 0;
 }
 
