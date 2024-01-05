@@ -188,7 +188,7 @@ Matrix LoadMatrixFromTerminal()
 void WriteMatrixToFileFromTerminal(Matrix *matrix)
 {
     char fileName[51];
-    printf("Please type in your input file's path (50 char long at max): \n");
+    printf("Please type in your new file's path where you want to write the matrix (50 char long at max): \n");
     scanf("%50s", fileName);
 
     if(fileName[strlen(fileName) - 1] == '\n')

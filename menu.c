@@ -14,14 +14,14 @@ void generate_matrix_menu()
 void load_matrix_menu()
 {
     Matrix loadedMatrix = LoadMatrixFromTerminal();
-    int askForOption = 1;
+    int askForOption = -1;
     while(askForOption < 0 || askForOption >3)
     {
         printf("Please choose from the following options: \n");
         printf("0 - Display matrix \n");
         printf("1 - Write matrix to file \n");
         printf("2 - Display and write matrix to file \n");
-        printf("3 - Do nothing, exit");
+        printf("3 - Do nothing, exit\n");
 
         scanf("%d", &askForOption);
     }
