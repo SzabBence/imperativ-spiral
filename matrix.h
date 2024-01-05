@@ -22,6 +22,7 @@ void FreeMatrix(Matrix *matrix);
 void WriteMatrixToFile(Matrix *matrix, char *filePath);
 void DisplayMatrix(Matrix *matrix);
 void WriteMatrixToFileFromTerminal(Matrix *matrix);
+void FillMatrixWithDefaultValues(Matrix *matrix);
 Matrix LoadMatrixFromTerminal();
 
 #endif

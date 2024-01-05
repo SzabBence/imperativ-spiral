@@ -196,5 +196,16 @@ void WriteMatrixToFileFromTerminal(Matrix *matrix)
         fileName[strlen(fileName) - 1] = '\0';
     }
     
-    WriteMatrixToFile(&matrix, &fileName);
+    WriteMatrixToFile(matrix, fileName);
+}
+
+void FillMatrixWithDefaultValues(Matrix *matrix)
+{
+    for(int i = 0; i<matrix->rows; i++)
+    {
+        for(int j = 0; j<matrix->columns; j++)
+        {
+            matrix->data[i][j] = 1;
+        }
+    }
 }

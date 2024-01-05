@@ -8,7 +8,20 @@ void print_user_manual_menu()
 
 void generate_matrix_menu()
 {
-    printf("Generate matrix\n");
+    int N = -1;
+    while(N < 1 || N > 20)
+    {
+        printf("Please type in the number (N) 1-20 : \n");
+        printf("->");
+        scanf("%d", &N);
+    }
+    
+    Matrix matrix = CreateMatrix(N, N);
+    matrix.generatedMatrix = 1;
+    matrix.loadedMatrix = 0;
+    FillMatrixWithDefaultValues(&matrix);
+    DisplayMatrix(&matrix);
+    FreeMatrix(&matrix);
 }
 
 void load_matrix_menu()
@@ -22,7 +35,7 @@ void load_matrix_menu()
         printf("1 - Write matrix to file \n");
         printf("2 - Display and write matrix to file \n");
         printf("3 - Do nothing, exit\n");
-
+        printf("-> ");
         scanf("%d", &askForOption);
     }
 
@@ -77,7 +90,7 @@ int play(){
         printf("1 - Generate matrix\n");
         printf("2 - Load matrix\n");
         printf("3 - Exit\n");
-
+        printf("-> ");
         scanf("%d", &option);
     }
     menu_chosen_option(option);
