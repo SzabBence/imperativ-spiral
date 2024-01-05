@@ -78,7 +78,7 @@ void FreeMatrix(Matrix *matrix)
     free(matrix->data);
 }
 
-Matrix LoadDataToMatrix(const char *filePath)
+Matrix LoadDataToMatrix(char *filePath)
  {
     Matrix matrix = CreateMatrix(countLines(filePath), countColumns(filePath));  
 
@@ -102,11 +102,13 @@ Matrix LoadDataToMatrix(const char *filePath)
     }
 
     fclose(file);
-
+    matrix.generatedMatrix = 0;
+    matrix.loadedMatrix = 1;
+    matrix.loadingFailed = 0;
     return matrix;
 }
 
-void WriteMatrixToFile(Matrix *matrix, const char *filePath)
+void WriteMatrixToFile(Matrix *matrix, char *filePath)
 {
     FILE *file = fopen(filePath, "w");
 
@@ -142,17 +144,57 @@ void DisplayMatrix(Matrix *matrix)
     }
 }
 
-int main() {
-    const char *filePath = "matrix.txt";
-    const char *outputPath = "structResult.txt";
+int file_exists(const char *filename)
+{
+  FILE *file = fopen(filename, "r");
 
-    Matrix matrix = LoadDataToMatrix(filePath);
-    
-    DisplayMatrix(&matrix);
-
-    WriteMatrixToFile(&matrix, outputPath);
-
-    FreeMatrix(&matrix);
-
+  if (file == NULL) {
     return 0;
+  }
+
+  fclose(file);
+  return 1;
+}
+
+Matrix LoadMatrixFromTerminal()
+{
+    char fileName[51];
+    printf("Please type in your input file's path (50 char long at max): \n");
+    scanf("%50s", fileName);
+
+    if(fileName[strlen(fileName) - 1] == '\n')
+    {
+        fileName[strlen(fileName) - 1] = '\0';
+    }
+    int fileopen = file_exists(fileName);
+    if(fileopen == 1)
+    {
+        Matrix matrix = LoadDataToMatrix(&fileName);
+
+        return matrix;
+
+    }
+    else
+    {
+        printf("File: '%s' cannot be opened\n", fileName);
+        Matrix matrix = CreateMatrix(0,0);
+        matrix.loadingFailed = 1;
+        matrix.generatedMatrix = 0;
+        matrix.loadedMatrix = 0;
+        return matrix;
+    }
+}
+
+void WriteMatrixToFileFromTerminal(Matrix *matrix)
+{
+    char fileName[51];
+    printf("Please type in your input file's path (50 char long at max): \n");
+    scanf("%50s", fileName);
+
+    if(fileName[strlen(fileName) - 1] == '\n')
+    {
+        fileName[strlen(fileName) - 1] = '\0';
+    }
+    
+    WriteMatrixToFile(&matrix, &fileName);
 }

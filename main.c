@@ -15,5 +15,6 @@ int main() {
         FreeMatrix(&matrix);
     }
 
+    LoadMatrixFromTerminal();
     return 0;
 }
