@@ -40,6 +40,20 @@ void matrix_operations(Matrix *matrix)
     printf("Returning to main menu...\n");
     printf("\n");
 }
+int reAttemptToLoadMatrix()
+{
+    int askForOption = -1;
+    printf("Do you wish to load a new matrix?\n");
+    while(askForOption !=0 || askForOption != 1)
+    {
+        printf("0 - No \n");
+        printf("1 - Yes \n");
+        printf("->");
+        scanf("%d", &askForOption);
+    }
+
+    return askForOption;
+}
 void generate_matrix_menu()
 {
     int N = -1;
@@ -51,8 +65,6 @@ void generate_matrix_menu()
     }
     
     Matrix generatedMatrix = CreateMatrix(N, N);
-    generatedMatrix.generatedMatrix = 1;
-    generatedMatrix.loadedMatrix = 0;
     FillMatrixWithDefaultValues(&generatedMatrix);
     
     matrix_operations(&generatedMatrix);
@@ -60,11 +72,20 @@ void generate_matrix_menu()
 
 void load_matrix_menu()
 {
-    Matrix loadedMatrix = LoadMatrixFromTerminal();
-    int askForOption = -1;
+    Matrix loadedMatrix;
+
+    do {
+        loadedMatrix = LoadMatrixFromTerminal();
+
+        if (loadedMatrix.loadingFailed == 1) {
+            FreeMatrix(&loadedMatrix);
+            printf("Failed to load matrix. Please try again.\n");
+        }
+    } while (loadedMatrix.loadingFailed == 1);
+
     matrix_operations(&loadedMatrix);
-    
 }
+
 
 void exit_menu()
 {

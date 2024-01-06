@@ -7,8 +7,6 @@ typedef struct
     int **data;  
     int rows;     
     int columns;
-    int generatedMatrix;
-    int loadedMatrix;
     int loadingFailed;  
 } Matrix;
 

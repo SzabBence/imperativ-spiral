@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "matrix.h"
 
 int countLines(char *filePath)
@@ -102,8 +103,6 @@ Matrix LoadDataToMatrix(char *filePath)
     }
 
     fclose(file);
-    matrix.generatedMatrix = 0;
-    matrix.loadedMatrix = 1;
     matrix.loadingFailed = 0;
     return matrix;
 }
@@ -180,8 +179,6 @@ Matrix LoadMatrixFromTerminal()
         printf("File: '%s' cannot be opened\n", fileName);
         Matrix matrix = CreateMatrix(0,0);
         matrix.loadingFailed = 1;
-        matrix.generatedMatrix = 0;
-        matrix.loadedMatrix = 0;
         return matrix;
     }
 }
