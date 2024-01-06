@@ -6,6 +6,40 @@ void print_user_manual_menu()
     printf("User manual\n");
 }
 
+void matrix_operations(Matrix *matrix)
+{
+    int askForOption = -1;
+    while(askForOption < 0 || askForOption >3)
+    {
+        printf("Please choose from the following options: \n");
+        printf("0 - Display matrix \n");
+        printf("1 - Write matrix to file \n");
+        printf("2 - Display and write matrix to file \n");
+        printf("3 - Do nothing, exit\n");
+        printf("-> ");
+        scanf("%d", &askForOption);
+    }
+
+    switch (askForOption)
+    {
+    case 0:
+        DisplayMatrix(matrix);
+        break;
+    case 1:
+        WriteMatrixToFileFromTerminal(matrix);
+        break;
+    case 2:
+        DisplayMatrix(matrix);
+        WriteMatrixToFileFromTerminal(matrix);
+        break;
+    case 3:
+        break;
+    }
+    
+    FreeMatrix(matrix);
+    printf("Returning to main menu...\n");
+    printf("\n");
+}
 void generate_matrix_menu()
 {
     int N = -1;
@@ -19,73 +53,16 @@ void generate_matrix_menu()
     Matrix generatedMatrix = CreateMatrix(N, N);
     generatedMatrix.generatedMatrix = 1;
     generatedMatrix.loadedMatrix = 0;
+    FillMatrixWithDefaultValues(&generatedMatrix);
     
-    int askForOption = -1;
-    while(askForOption < 0 || askForOption >3)
-    {
-        printf("Please choose from the following options: \n");
-        printf("0 - Display matrix \n");
-        printf("1 - Write matrix to file \n");
-        printf("2 - Display and write matrix to file \n");
-        printf("3 - Do nothing, exit\n");
-        printf("-> ");
-        scanf("%d", &askForOption);
-    }
-
-    switch (askForOption)
-    {
-    case 0:
-        DisplayMatrix(&generatedMatrix);
-        break;
-    case 1:
-        WriteMatrixToFileFromTerminal(&generatedMatrix);
-        break;
-    case 2:
-        DisplayMatrix(&generatedMatrix);
-        WriteMatrixToFileFromTerminal(&generatedMatrix);
-        break;
-    case 3:
-        break;
-    }
-    
-    FreeMatrix(&generatedMatrix);
-    printf("Returning to main menu...\n");
-    
+    matrix_operations(&generatedMatrix);
 }
 
 void load_matrix_menu()
 {
     Matrix loadedMatrix = LoadMatrixFromTerminal();
     int askForOption = -1;
-    while(askForOption < 0 || askForOption >3)
-    {
-        printf("Please choose from the following options: \n");
-        printf("0 - Display matrix \n");
-        printf("1 - Write matrix to file \n");
-        printf("2 - Display and write matrix to file \n");
-        printf("3 - Do nothing, exit\n");
-        printf("-> ");
-        scanf("%d", &askForOption);
-    }
-
-    switch (askForOption)
-    {
-    case 0:
-        DisplayMatrix(&loadedMatrix);
-        break;
-    case 1:
-        WriteMatrixToFileFromTerminal(&loadedMatrix);
-        break;
-    case 2:
-        DisplayMatrix(&loadedMatrix);
-        WriteMatrixToFileFromTerminal(&loadedMatrix);
-        break;
-    case 3:
-        break;
-    }
-    
-    FreeMatrix(&loadedMatrix);
-    printf("Returning to main menu...\n");
+    matrix_operations(&loadedMatrix);
     
 }
 
