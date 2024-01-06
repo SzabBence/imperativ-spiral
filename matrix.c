@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "matrix.h"
 
-int countLines(const char *filePath)
+int countLines(char *filePath)
 {
     FILE *file = fopen(filePath, "r");
     
@@ -27,7 +27,7 @@ int countLines(const char *filePath)
     return count;
 }
 
-int countColumns(const char *filePath)
+int countColumns(char *filePath)
 {
     FILE *file = fopen(filePath, "r");
     
@@ -145,7 +145,7 @@ void DisplayMatrix(Matrix *matrix)
     printf("\n");
 }
 
-int file_exists(const char *filename)
+int file_exists(char *filename)
 {
   FILE *file = fopen(filename, "r");
 

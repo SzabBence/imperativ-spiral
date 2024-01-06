@@ -12,8 +12,9 @@ typedef struct
     int loadingFailed;  
 } Matrix;
 
-int countLines(const char *filePath);
-int countColumns(const char *filePath);
+int countLines(char *filePath);
+int countColumns(char *filePath);
+int file_exists(char *filename);
 
 Matrix CreateMatrix(int rows, int columns);
 Matrix LoadDataToMatrix(char *filePath);
