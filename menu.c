@@ -8,7 +8,7 @@ void print_user_manual_menu()
     printf("we save every file to the same folder during the run, where we read from. \n \n"); 
 }
 
-void matrix_operations(Matrix *matrix)
+void matrix_operations(Matrix *matrix, char* fileName)
 {
     int askForOption = -1;
     while(askForOption < 0 || askForOption >3)
@@ -28,11 +28,11 @@ void matrix_operations(Matrix *matrix)
         DisplayMatrixBetter(matrix);
         break;
     case 1:
-        WriteMatrixToFileFromTerminal(matrix);
+        WriteMatrixToFile(matrix, fileName);
         break;
     case 2:
         DisplayMatrixBetter(matrix);
-        WriteMatrixToFileFromTerminal(matrix);
+        WriteMatrixToFile(matrix, fileName);
         break;
     case 3:
         break;
@@ -78,7 +78,7 @@ int getClockDirection()
 void generate_matrix_menu()
 {
     int N = -1;
-    
+    char fileName[51];
     while(N < 1 || N > 20)
     {
         printf("Please type in the number (N) 1-20 : \n");
@@ -89,26 +89,28 @@ void generate_matrix_menu()
     int generalDirection = getDirection();
     int clockDirection = getClockDirection();
     int combinedDirection = generalDirection + clockDirection * 10; 
+    sprintf(fileName,"rows_%d_direction_%d_clock_%d.txt", N,generalDirection,clockDirection);
     Matrix generatedMatrix = CreateMatrix(N, N);
     GenerateMatrix(&generatedMatrix,combinedDirection);
     
-    matrix_operations(&generatedMatrix);
+    matrix_operations(&generatedMatrix, fileName);
 }
 
 void load_matrix_menu()
 {
     Matrix loadedMatrix;
+    char fileName[51];
 
     do {
         loadedMatrix = LoadMatrixFromTerminal();
-
+        
         if (loadedMatrix.loadingFailed == 1) {
             FreeMatrix(&loadedMatrix);
             printf("Failed to load matrix. Please try again.\n");
         }
     } while (loadedMatrix.loadingFailed == 1);
-
-    matrix_operations(&loadedMatrix);
+    sprintf(fileName,"LoadedMatrix_rows_%d.txt", loadedMatrix.rows);
+    matrix_operations(&loadedMatrix, fileName);
 }
 
 
