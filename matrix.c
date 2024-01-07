@@ -56,6 +56,24 @@ int countColumns(char *filePath)
     return count;
 }
 
+int countDigits(int number)
+{
+    int count = 0;
+
+    if (number == 0)
+    {
+        return 1;
+    }
+
+    while (number != 0)
+    {
+        number /= 10;
+        count++;
+    }
+
+    return count;
+}
+
 Matrix CreateMatrix(int rows, int columns) {
     Matrix matrix;
     matrix.data = (int **)malloc(rows * sizeof(int *));
@@ -68,7 +86,6 @@ Matrix CreateMatrix(int rows, int columns) {
 
     return matrix;
 }
-
 
 void FreeMatrix(Matrix *matrix)
 {
@@ -138,6 +155,57 @@ void DisplayMatrix(Matrix *matrix)
         for(int j = 0; j < matrix->columns; j++)
         {
             printf("%d ", matrix->data[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+void printNumberBasedOnDigit(int maxDigits, int valueToPrint)
+{
+    int actualDigits = countDigits(valueToPrint);
+    switch (maxDigits)
+    {
+    case 1:
+        printf("%d ", valueToPrint);
+        break;
+    case 2:
+        switch(actualDigits)
+        {
+            case 1:
+                printf(" %d ", valueToPrint);
+                break;
+            case 2:
+                 printf("%d ", valueToPrint);
+                break;
+        }
+        break;
+    case 3:
+        switch(actualDigits)
+        {
+            case 1:
+                printf("  %d ", valueToPrint);
+                break;
+            case 2:
+                 printf(" %d ", valueToPrint);
+                break;
+            case 3:
+                printf("%d ", valueToPrint);
+                break;
+        }
+        break;
+    }
+}
+void DisplayMatrixBetter(Matrix *matrix)
+{
+    int temp;
+    int numbers = matrix->rows * matrix->rows;
+    int maxDigitLength = countDigits(numbers);
+    for(int i = 0; i < matrix->rows; i++)
+    {
+        for(int j = 0; j < matrix->columns; j++)
+        {
+            temp = matrix->data[i][j];
+            printNumberBasedOnDigit(maxDigitLength, temp);
         }
         printf("\n");
     }
@@ -343,13 +411,13 @@ void GenerateMatrix(Matrix *matrix, int combinedDirection)
 
 int main()
 {
-    int N = 3;
+    int N = 11;
     int a = 24;
     if(N % 2 == 1){
        Matrix cica = CreateMatrix(N,N);
         GenerateMatrix(&cica , a);
         WriteMatrixToFile(&cica, "spiral.csv");
-        DisplayMatrix(&cica);
+        DisplayMatrixBetter(&cica);
         FreeMatrix(&cica);
     } 
 }

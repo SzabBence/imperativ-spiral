@@ -25,6 +25,7 @@ typedef struct
 int countLines(char *filePath);
 int countColumns(char *filePath);
 int file_exists(char *filename);
+int countDigits(int number);
 
 Matrix CreateMatrix(int rows, int columns);
 Matrix LoadDataToMatrix(char *filePath);
@@ -32,8 +33,10 @@ Matrix LoadDataToMatrix(char *filePath);
 void FreeMatrix(Matrix *matrix);
 void WriteMatrixToFile(Matrix *matrix, char *filePath);
 void DisplayMatrix(Matrix *matrix);
+void DisplayMatrixBetter(Matrix *matrix);
 void WriteMatrixToFileFromTerminal(Matrix *matrix);
 void FillMatrixWithDefaultValues(Matrix *matrix);
+void printNumberBasedOnDigit(int maxDigits, int valueToPrint);
 Matrix LoadMatrixFromTerminal();
 void GenerateMatrix(Matrix *matrix, int combinedDirection);
 int main();
