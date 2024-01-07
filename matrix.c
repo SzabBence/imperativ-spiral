@@ -96,7 +96,7 @@ void FreeMatrix(Matrix *matrix)
     free(matrix->data);
 }
 
-Matrix LoadDataToMatrix(char *filePath)
+Matrix LoadDataToMatrix(char* filePath)
  {
     Matrix matrix = CreateMatrix(countLines(filePath), countColumns(filePath));  
 
@@ -144,7 +144,6 @@ void WriteMatrixToFile(Matrix *matrix, char *filePath)
             else{
                 fprintf(file, "%d", matrix->data[i][j]);
             }
-           // fprintf(file, "%d ", matrix->data[i][j]);
         }
         fprintf(file, "\n");
     }
@@ -244,7 +243,7 @@ Matrix LoadMatrixFromTerminal()
     int fileopen = file_exists(fileName);
     if(fileopen == 1)
     {
-        Matrix matrix = LoadDataToMatrix(&fileName);
+        Matrix matrix = LoadDataToMatrix(fileName);
 
         return matrix;
 
