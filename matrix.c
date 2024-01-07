@@ -207,3 +207,140 @@ void FillMatrixWithDefaultValues(Matrix *matrix)
         }
     }
 }
+
+RotationMapping initRotationMapping()
+{
+    RotationMapping rotationMapping;
+    rotationMapping.x1 = 0;
+    rotationMapping.x2 = 0;
+    rotationMapping.x3 = 0;
+    rotationMapping.x4 = 0;
+    rotationMapping.y1 = 0;
+    rotationMapping.y2 = 0;
+    rotationMapping.y3 = 0;
+    rotationMapping.y4 = 0;
+    return rotationMapping;
+}
+RotationMapping createRotationMapping(int combinedDirection)
+{
+    RotationMapping rotationMapping = initRotationMapping();
+    switch (combinedDirection)
+    {
+    case 11: // UP CW
+        rotationMapping.x1 = -1;
+        rotationMapping.x3 = 1;
+        rotationMapping.y2 = 1;
+        rotationMapping.y4 = -1;
+        break;
+    case 21: // UP CCW
+        rotationMapping.x1 = -1;
+        rotationMapping.x3 = 1;
+        rotationMapping.y2 = -1;
+        rotationMapping.y4 = 1;
+        break;
+    case 12: // DOWN CW
+        rotationMapping.x1 = 1;
+        rotationMapping.y2 = -1;
+        rotationMapping.x3 = -1;
+        rotationMapping.y4 = 1;
+        break;
+    case 22: // DOWN CCW
+        rotationMapping.x1 = 1;
+        rotationMapping.x3 = -1;
+        rotationMapping.y2 = 1;
+        rotationMapping.y4 -1;
+        break;
+    case 13: //RIGHT CW
+        rotationMapping.y1 = 1;
+        rotationMapping.x2 = 1;
+        rotationMapping.y3 = -1;
+        rotationMapping.x4 = -1;
+        break;
+    case 23: // RIGHT CCW
+        rotationMapping.y1 = 1;
+        rotationMapping.x2 = -1;
+        rotationMapping.y3 = -1;
+        rotationMapping.x4 = 1;
+        break;
+    case 14: // LEFT CW
+        rotationMapping.y1 = -1;
+        rotationMapping.x2 = -1;
+        rotationMapping.y3 = 1;
+        rotationMapping.x4 = 1;
+        break;
+    case 24: // LEFT CCW
+        rotationMapping.y1 = -1;
+        rotationMapping.x2 = 1;
+        rotationMapping.y3 = 1;
+        rotationMapping.x4 = -1;
+        break;
+    default:
+        printf("Ups, something went wrong. Couldn't create matrix!");
+        break;
+    }
+}
+
+void GenerateMatrix(Matrix *matrix)
+{
+    int N = matrix->rows;
+    int x = N / 2;
+    int y = x;
+    int k = 1;
+    int i = 1;
+    int until = N * N;
+    matrix->data[x][y] = i;
+    while (i != until)
+    {
+        if(k % 2 == 1)
+        {
+            for(int j = 0; j <k; j++) //FEL
+            {
+                if(i != until){
+                    i++;
+                    x--;
+                    matrix->data[x][y] = i;
+                }
+            }
+
+            for(int j = 0; j <k; j++) //JOBB
+            {
+                if(i != until){
+                    i++;
+                    y++;
+                    matrix->data[x][y] = i;
+                }
+            }
+        }else{
+            for(int j = 0; j <k; j++) // LE
+            {
+                if(i != until){
+                    i++;
+                    x++;
+                    matrix->data[x][y] = i;
+                }
+            }
+
+            for(int j = 0; j <k; j++) // BAL
+            {
+                if(i != until){
+                    i++;
+                    y--;
+                    matrix->data[x][y] = i;
+                }
+            }
+        }
+        
+        k++;
+    }
+}
+
+int main()
+{
+    int N = 5;
+    Matrix matrix = CreateMatrix(N,N);
+    GenerateMatrix(&matrix);
+    DisplayMatrix(&matrix);
+    WriteMatrixToFile(&matrix, "ide.csv");
+    FreeMatrix(&matrix);
+    return 0;
+}

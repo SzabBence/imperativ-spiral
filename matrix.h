@@ -37,4 +37,7 @@ void FillMatrixWithDefaultValues(Matrix *matrix);
 Matrix LoadMatrixFromTerminal();
 void GenerateMatrix(Matrix *matrix);
 int main();
+
+RotationMapping initRotationMapping();
+RotationMapping createRotationMapping(int combinedDirection);
 #endif
