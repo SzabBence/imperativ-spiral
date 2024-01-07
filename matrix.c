@@ -289,6 +289,7 @@ RotationMapping initRotationMapping()
     rotationMapping.y4 = 0;
     return rotationMapping;
 }
+
 RotationMapping createRotationMapping(int combinedDirection)
 {
     RotationMapping rotationMapping = initRotationMapping();
@@ -350,12 +351,57 @@ RotationMapping createRotationMapping(int combinedDirection)
     return rotationMapping;
 }
 
+oddDeltas getOddDeltas(int combinedDirection)
+{
+    oddDeltas oddDelta;
+    oddDelta.deltaX = 0;
+    oddDelta.deltaY = 0;
+
+    switch (combinedDirection)
+    {
+    case 11: // UP CW
+        oddDelta.deltaY = -1;
+        break;
+    case 21: // UP CCW
+        
+        break;
+    case 12: // DOWN CW
+        oddDelta.deltaX = -1;
+        break;
+    case 22: // DOWN CCW
+        oddDelta.deltaX = -1;
+        oddDelta.deltaY = -1;
+        break;
+    case 13: //RIGHT CW
+        oddDelta.deltaX = -1;
+        oddDelta.deltaY = -1;
+        break;
+    case 23: // RIGHT CCW
+        oddDelta.deltaY = -1;
+        break;
+    case 14: // LEFT CW
+        oddDelta.deltaY = -1;
+        break;
+    case 24: // LEFT CCW
+        oddDelta.deltaX = -1;
+        break;
+    }
+
+    return oddDelta;
+}
+
 void GenerateMatrix(Matrix *matrix, int combinedDirection)
 {
     RotationMapping rotationMapping = createRotationMapping(combinedDirection);
     int N = matrix->rows;
     int x = N / 2;
     int y = x;
+    if(N % 2 == 0)
+    {
+        oddDeltas oddDelta = getOddDeltas(combinedDirection);
+        x = x + oddDelta.deltaX;
+        y = y + oddDelta.deltaY;
+    }
     int k = 1;
     int i = 1;
     int until = N * N;
@@ -407,18 +453,5 @@ void GenerateMatrix(Matrix *matrix, int combinedDirection)
         
         k++;
     }
-}
-
-int main()
-{
-    int N = 11;
-    int a = 24;
-    if(N % 2 == 1){
-       Matrix cica = CreateMatrix(N,N);
-        GenerateMatrix(&cica , a);
-        WriteMatrixToFile(&cica, "spiral.csv");
-        DisplayMatrixBetter(&cica);
-        FreeMatrix(&cica);
-    } 
 }
     

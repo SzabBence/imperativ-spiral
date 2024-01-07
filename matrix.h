@@ -22,6 +22,12 @@ typedef struct
     int y4;
 } RotationMapping;
 
+typedef struct
+{
+    int deltaX;
+    int deltaY;
+} oddDeltas;
+
 int countLines(char *filePath);
 int countColumns(char *filePath);
 int file_exists(char *filename);
@@ -43,4 +49,7 @@ int main();
 
 RotationMapping initRotationMapping();
 RotationMapping createRotationMapping(int combinedDirection);
+
+oddDeltas getOddDeltas(int combinedDirection);
+
 #endif

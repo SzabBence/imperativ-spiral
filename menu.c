@@ -3,7 +3,9 @@
 
 void print_user_manual_menu()
 {
-    printf("User manual\n");
+    printf("You can use the features by following the terminal and typing in numbers. \n");
+    printf("Please note that every file is saved to the same folder, where the program runs. Also \n");
+    printf("we save every file to the same folder during the run, where we read from. \n \n"); 
 }
 
 void matrix_operations(Matrix *matrix)
@@ -23,13 +25,13 @@ void matrix_operations(Matrix *matrix)
     switch (askForOption)
     {
     case 0:
-        DisplayMatrix(matrix);
+        DisplayMatrixBetter(matrix);
         break;
     case 1:
         WriteMatrixToFileFromTerminal(matrix);
         break;
     case 2:
-        DisplayMatrix(matrix);
+        DisplayMatrixBetter(matrix);
         WriteMatrixToFileFromTerminal(matrix);
         break;
     case 3:
@@ -40,23 +42,43 @@ void matrix_operations(Matrix *matrix)
     printf("Returning to main menu...\n");
     printf("\n");
 }
-int reAttemptToLoadMatrix()
+
+int getDirection()
 {
     int askForOption = -1;
-    printf("Do you wish to load a new matrix?\n");
-    while(askForOption !=0 || askForOption != 1)
+    while(askForOption < 1 || askForOption > 4)
     {
-        printf("0 - No \n");
-        printf("1 - Yes \n");
-        printf("->");
+        printf("Please select direction \n");
+        printf("1 - Up \n");
+        printf("2 - Down \n");
+        printf("3 - Right \n");
+        printf("4 - Left \n");
+        printf("-> ");
         scanf("%d", &askForOption);
     }
-
+    printf("\n");
     return askForOption;
 }
+
+int getClockDirection()
+{
+    int askForOption = -1;
+    while(askForOption < 1 || askForOption > 2)
+    {
+        printf("Please select direction \n");
+        printf("1 - Clockwise \n");
+        printf("2 - CounterClockWise \n");
+        printf("-> ");
+        scanf(" %d", &askForOption);
+    }
+    printf("\n");
+    return askForOption;
+}
+
 void generate_matrix_menu()
 {
     int N = -1;
+    
     while(N < 1 || N > 20)
     {
         printf("Please type in the number (N) 1-20 : \n");
@@ -64,8 +86,11 @@ void generate_matrix_menu()
         scanf("%d", &N);
     }
     
+    int generalDirection = getDirection();
+    int clockDirection = getClockDirection();
+    int combinedDirection = generalDirection + clockDirection * 10; 
     Matrix generatedMatrix = CreateMatrix(N, N);
-    FillMatrixWithDefaultValues(&generatedMatrix);
+    GenerateMatrix(&generatedMatrix,combinedDirection);
     
     matrix_operations(&generatedMatrix);
 }
@@ -91,6 +116,7 @@ void exit_menu()
 {
     printf("Exiting. Thank you for playing with this software! Good bye!\n");
 }
+
 void menu_chosen_option(int option)
 {
     switch (option)
@@ -128,6 +154,7 @@ int play(){
 
 int main()
 {
+    printf("Szabo Software: Where code is our passion. Copyright 1994. All rights reserved. \n");
     int goOn = -1;
     while(goOn != 3)
     {
