@@ -110,11 +110,10 @@ Matrix LoadDataToMatrix(char *filePath)
     for (int i = 0; i < matrix.rows; i++) {
         for (int j = 0; j < matrix.columns; j++) {
             if (fscanf(file, "%d", &matrix.data[i][j]) != 1) {
-                fprintf(stderr, "Error reading matrix from file\n");
+                printf("Error reading matrix from file\n");
                 fclose(file);
                 FreeMatrix(&matrix);
                 // Handle error, possibly return an empty matrix
-                return matrix;
             }
         }
     }
@@ -138,11 +137,17 @@ void WriteMatrixToFile(Matrix *matrix, char *filePath)
     {
         for (int j = 0; j < matrix->columns; j++)
         {
-            fprintf(file, "%d ", matrix->data[i][j]);
+            if(j!= matrix->columns - 1)
+            {
+                fprintf(file, "%d ", matrix->data[i][j]);
+            }
+            else{
+                fprintf(file, "%d", matrix->data[i][j]);
+            }
+           // fprintf(file, "%d ", matrix->data[i][j]);
         }
         fprintf(file, "\n");
     }
-
     fclose(file);
 
     printf("Matrix successfully written to file: %s\n", filePath);
@@ -160,6 +165,7 @@ void DisplayMatrix(Matrix *matrix)
     }
     printf("\n");
 }
+
 void printNumberBasedOnDigit(int maxDigits, int valueToPrint)
 {
     int actualDigits = countDigits(valueToPrint);
@@ -195,6 +201,7 @@ void printNumberBasedOnDigit(int maxDigits, int valueToPrint)
         break;
     }
 }
+
 void DisplayMatrixBetter(Matrix *matrix)
 {
     int temp;
