@@ -248,7 +248,7 @@ RotationMapping createRotationMapping(int combinedDirection)
         rotationMapping.x1 = 1;
         rotationMapping.x3 = -1;
         rotationMapping.y2 = 1;
-        rotationMapping.y4 -1;
+        rotationMapping.y4 = -1;
         break;
     case 13: //RIGHT CW
         rotationMapping.y1 = 1;
@@ -343,10 +343,14 @@ void GenerateMatrix(Matrix *matrix, int combinedDirection)
 
 int main()
 {
-    int N = 5;
-    int a = 11;
-    Matrix cica = CreateMatrix(N,N);
-    GenerateMatrix(&cica , a);
-    WriteMatrixToFile(&cica, "spiral.csv");
-    FreeMatrix(&cica);
+    int N = 3;
+    int a = 24;
+    if(N % 2 == 1){
+       Matrix cica = CreateMatrix(N,N);
+        GenerateMatrix(&cica , a);
+        WriteMatrixToFile(&cica, "spiral.csv");
+        DisplayMatrix(&cica);
+        FreeMatrix(&cica);
+    } 
 }
+    
