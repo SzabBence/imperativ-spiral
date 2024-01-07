@@ -35,7 +35,7 @@ void DisplayMatrix(Matrix *matrix);
 void WriteMatrixToFileFromTerminal(Matrix *matrix);
 void FillMatrixWithDefaultValues(Matrix *matrix);
 Matrix LoadMatrixFromTerminal();
-void GenerateMatrix(Matrix *matrix);
+void GenerateMatrix(Matrix *matrix, int combinedDirection);
 int main();
 
 RotationMapping initRotationMapping();

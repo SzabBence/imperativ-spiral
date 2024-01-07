@@ -278,10 +278,13 @@ RotationMapping createRotationMapping(int combinedDirection)
         printf("Ups, something went wrong. Couldn't create matrix!");
         break;
     }
+
+    return rotationMapping;
 }
 
-void GenerateMatrix(Matrix *matrix)
+void GenerateMatrix(Matrix *matrix, int combinedDirection)
 {
+    RotationMapping rotationMapping = createRotationMapping(combinedDirection);
     int N = matrix->rows;
     int x = N / 2;
     int y = x;
@@ -293,38 +296,42 @@ void GenerateMatrix(Matrix *matrix)
     {
         if(k % 2 == 1)
         {
-            for(int j = 0; j <k; j++) //FEL
+            for(int j = 0; j <k; j++)
             {
                 if(i != until){
                     i++;
-                    x--;
+                    x = x + rotationMapping.x1;
+                    y = y + rotationMapping.y1;
                     matrix->data[x][y] = i;
                 }
             }
 
-            for(int j = 0; j <k; j++) //JOBB
+            for(int j = 0; j <k; j++)
             {
                 if(i != until){
                     i++;
-                    y++;
+                    x = x + rotationMapping.x2;
+                    y = y + rotationMapping.y2;
                     matrix->data[x][y] = i;
                 }
             }
         }else{
-            for(int j = 0; j <k; j++) // LE
+            for(int j = 0; j <k; j++)
             {
                 if(i != until){
                     i++;
-                    x++;
+                    x = x + rotationMapping.x3;
+                    y = y + rotationMapping.y3;
                     matrix->data[x][y] = i;
                 }
             }
 
-            for(int j = 0; j <k; j++) // BAL
+            for(int j = 0; j <k; j++)
             {
                 if(i != until){
                     i++;
-                    y--;
+                    x = x + rotationMapping.x4;
+                    y = y + rotationMapping.y4;
                     matrix->data[x][y] = i;
                 }
             }
@@ -337,10 +344,9 @@ void GenerateMatrix(Matrix *matrix)
 int main()
 {
     int N = 5;
-    Matrix matrix = CreateMatrix(N,N);
-    GenerateMatrix(&matrix);
-    DisplayMatrix(&matrix);
-    WriteMatrixToFile(&matrix, "ide.csv");
-    FreeMatrix(&matrix);
-    return 0;
+    int a = 11;
+    Matrix cica = CreateMatrix(N,N);
+    GenerateMatrix(&cica , a);
+    WriteMatrixToFile(&cica, "spiral.csv");
+    FreeMatrix(&cica);
 }
